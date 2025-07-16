@@ -1,57 +1,80 @@
-# 💡 Suitmedia Ideas UI Implementation
+#  Implementasi UI Ideas - Suitmedia
 
-A responsive and interactive web application for displaying idea posts using a public API. Built with vanilla HTML, CSS, and JavaScript.
-
-## 📌 Features
-
-### 1. Header
-✅ **Fixed Position & Show/Hide on Scroll**  
-- Header uses `position: fixed` (via `.header` class in `style.css`).  
-- `handleScroll()` in `script.js` hides the header when scrolling down and shows it when scrolling up using the `.hidden` class (`transform: translateY(-100%)`).
-
-✅ **Transparent Background on Scroll**  
-- When scrolled more than 100px, `.scrolled` class is added to make the header slightly transparent using `rgba(255, 107, 53, 0.95)` and `backdrop-filter: blur(10px)`.
-
-✅ **Active State for Menu**  
-- The "Ideas" menu in `index.html` has an `.active` class styled with an underline in CSS (`.nav a.active`).
+Sebuah antarmuka pengguna (UI) responsif dan interaktif untuk menampilkan daftar ide dari API Suitmedia. Dibuat menggunakan **HTML, CSS, dan JavaScript murni (vanilla)**, dilengkapi dengan fitur seperti efek parallax, lazy loading gambar, pagination, sorting, dan penyimpanan state di localStorage.
 
 ---
 
-### 2. Banner
-✅ **Background Image & Skewed Bottom Edge**  
-- Background image applied to `.banner-bg`, easily customizable in CSS.  
-- Diagonal edge achieved with `.banner-diagonal` and `transform: skewY(-2deg)`.
+## ✨ Fitur
 
-✅ **Parallax Scrolling Effect**  
-- Implemented in `handleScroll()` by transforming `.banner-bg` and `.banner-content` at different scroll speeds.
+### 1. Header (Navigasi)
 
----
+✅ **Posisi Tetap & Sembunyi Saat Scroll**
 
-### 3. List Post
-✅ **Sorting & Pagination**  
-- Users can choose "Sort by" (`Newest` / `Oldest`) and "Show per page" (`10`, `20`, `50`).  
-- Event listeners update state and re-fetch data on change.
+* Elemen `<nav>` memiliki `position: fixed`, sehingga selalu terlihat di atas.
+* Saat scroll ke bawah, header akan tersembunyi; saat scroll ke atas, akan muncul kembali (dengan kelas `.hide`).
 
-✅ **State Persistence via URL**  
-- URL parameters (`?page=2&size=20&sort=published_at`) are preserved using `URLSearchParams` and `history.replaceState()`.  
-- Refreshing the page retains filters and page number.
+✅ **Background Transparan saat Scroll**
 
-✅ **Consistent Thumbnail Ratio**  
-- Thumbnails are uniform using `object-fit: cover`, `height: 200px`, and `overflow: hidden`.
+* Saat pengguna scroll ke bawah, header akan memiliki latar belakang transparan `rgba(255, 135, 55, 0.9)` dan efek blur (`backdrop-filter`).
 
-✅ **Lazy Loading for Images**  
-- `IntersectionObserver` is used to load images only when they enter the viewport.  
-- Initially set via `data-src`, and updated to `src` when visible.
+✅ **Status Menu Aktif**
 
-✅ **Multiline Text Clamping**  
-- Titles are limited to 3 lines using `-webkit-line-clamp: 3` with ellipsis (`...`) for overflow.
+* Menu "Work" diberi kelas `.active` dan diberi garis bawah putih melalui CSS.
 
 ---
 
-### 4. API Integration
-✅ **Dynamic API Request**  
-- Fetches data from:  
-  `https://suitmedia-backend.suitdev.com/api/ideas?page[number]=...&page[size]=...&append[]=small_image&append[]=medium_image&sort=...`
+### 2. Banner (Hero Section)
+
+✅ **Gambar Latar & Sudut Miring**
+
+* Gambar latar diterapkan di bagian `.hero` dengan overlay gelap (`::before`).
+* Area bawah dibuat miring menggunakan `clip-path: polygon(...)` tanpa harus edit gambar.
+
+✅ **Efek Parallax**
+
+* Saat halaman discroll, isi `.hero-content` bergerak lebih lambat dibanding latar belakang, memberikan efek kedalaman.
+
+---
+
+### 3. Daftar Postingan (Card)
+
+✅ **Grid Layout**
+
+* Postingan ditampilkan dalam bentuk kartu menggunakan CSS grid.
+* Setiap kartu menampilkan gambar (placeholder), tanggal rilis, dan judul maksimal 3 baris (dengan ellipsis `...`).
+
+✅ **Filter & Urutan**
+
+* Tersedia dropdown untuk memilih jumlah tampilan per halaman (10, 20, 50) dan urutan (terbaru / terlama).
+* Pilihan pengguna disimpan di `localStorage`.
+
+✅ **Pagination**
+
+* Navigasi halaman mencakup tombol "First", "Prev", "Next", "Last", dan tombol angka halaman.
+* Teks `Showing x – y of z` diperbarui secara dinamis.
+
+✅ **Lazy Loading Gambar**
+
+* Gambar hanya dimuat saat terlihat di layar menggunakan atribut `loading="lazy"` dan link acak dari [Picsum Photos](https://picsum.photos).
+
+✅ **Penyimpanan State (Persistensi)**
+
+* Sortir, ukuran halaman, dan nomor halaman disimpan di `localStorage`, sehingga saat reload halaman tetap pada kondisi terakhir.
+
+---
+
+### 4. Koneksi ke API
+
+✅ **Endpoint API yang Digunakan**
+
+```http
+GET https://suitmedia-backend.suitdev.com/api/ideas
+?page[number]={halaman}
+&page[size]={jumlah}
+&append[]=small_image
+&append[]=medium_image
+&sort={urutan}
+```
 
 ✅ **Handled API Errors**  
 - **403 Error (Forbidden)**: Caused by hotlink protection. As a workaround, image URLs are replaced with random images from [Picsum Photos](https://picsum.photos).
