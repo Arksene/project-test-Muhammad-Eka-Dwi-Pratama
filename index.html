@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Suitmedia</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav class="flex">
+        <img class="logo" src="public/logo.png" alt="Suitmedia Logo" />
+        <ul class="flex">
+          <li><a href="#" class="active">Work</a></li>
+          <li><a href="#" class="">About</a></li>
+          <li><a href="#" class="">Services</a></li>
+          <li><a href="#" class="">Careers</a></li>
+          <li><a href="#" class="">Contacts</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Ideas</h1>
+        <p>Where all our great things begin</p>
+      </div>
+    </section>
+    <main class="" id="main-content">
+      <div class="flex">
+        <div>
+          <p>
+            Showing <span id="showCount"></span> of
+            <span id="total-count"></span>
+          </p>
+        </div>
+        <div class="flex">
+          <div class="dropdown">
+            <label for="page-select">Show per page:</label>
+            <select id="page-select">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+
+            <label for="sort-select">Sort by:</label>
+            <select id="sort-select">
+              <option value="-published_at">Newest</option>
+              <option value="published_at">Oldest</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <section class="grid" id="card-container"></section>
+    </main>
+    <section class="pagination">
+      <button id="firstPage"><<</button>
+      <button id="prevPage"><</button>
+      <div id="pageNumbers"></div>
+      <button id="nextPage">></button>
+      <button id="lastPage">>></button>
+    </section>
+  </body>
+</html>
