@@ -65,17 +65,6 @@ Sebuah antarmuka pengguna (UI) responsif dan interaktif untuk menampilkan daftar
 
 ### 4. Koneksi ke API
 
-✅ **Endpoint API yang Digunakan**
-
-```http
-GET https://suitmedia-backend.suitdev.com/api/ideas
-?page[number]={halaman}
-&page[size]={jumlah}
-&append[]=small_image
-&append[]=medium_image
-&sort={urutan}
-```
-
 ✅ **Handled API Errors**  
 - **403 Error (Forbidden)**: Caused by hotlink protection. As a workaround, image URLs are replaced with random images from [Picsum Photos](https://picsum.photos).
 
